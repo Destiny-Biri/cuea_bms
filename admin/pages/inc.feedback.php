@@ -1,9 +1,9 @@
 <?php
 if(isset($_GET['status'])){
-	if((int) ($_GET['status']) == 1) {
+	if(($_GET['status']) == 1) {
 		$status = "success";
 	}else{
-		$status = "warning";
+		$status = "error";
 	}
 	echo "<div>";
 		echo "<div data-alert class=\"callout $status small\">";
