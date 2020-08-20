@@ -23,5 +23,5 @@ if(isset($_POST['btn_manage_route'])){
 	<label for="txt_end_point">Destination</label>
 		<input type="text" name="txt_end_point" id="txt_end_point" required>	
 	
-	<input type="submit" name="btn_manage_route">	
+	<input type="submit" class="button" name="btn_manage_route">
 </form>
