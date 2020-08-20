@@ -4,6 +4,55 @@ session_start();
 if(!isset($_SESSION['username']) || !isset($_SESSION['admin']) ){
 	header('Location:login.php');
 }
+require_once 'src/class.db.php';
+if(isset($_GET['action'])){
+  $action = $_GET['action'];
+  if($action == 'delete'){
+    if(isset($_GET['view'])){
+		$view = $_GET['view'];
+        switch ($view){
+            case 'bus':
+                if(isset($_GET['reg'])){
+                    $registration = $_GET['reg'];
+                    $db = new DB();
+                    $result = $db->deleteBus($registration);
+                    if(is_bool($result)){
+                        $_SESSION['feedback'] = "The bus was successfully deleted";
+                    }else{
+						$_SESSION['feedback'] = $result;
+                    }
+                    header('Location:index.php?action=view&view=bus');
+                }
+                break;
+            case 'journey':
+				if(isset($_GET['journeyId'])){
+					$journeyId = $_GET['journeyId'];
+					$db = new DB();
+					$result = $db->deleteJourney($journeyId);
+					if(is_bool($result)){
+						$_SESSION['feedback'] = "The journey was successfully deleted";
+					}else{
+						$_SESSION['feedback'] = $result;
+					}
+					header('Location:index.php?action=view&view=journey');
+				}
+                break;
+            case 'route':
+				if(isset($_GET['routeId'])){
+					$routeId = $_GET['routeId'];
+					$db = new DB();
+					$result = $db->deleteRoute($routeId);
+					if(is_bool($result)){
+						$_SESSION['feedback'] = "The route was successfully deleted";
+					}else{
+						$_SESSION['feedback'] = $result;
+					}
+					header('Location:index.php?action=view&view=route');
+				}
+        }
+    }
+  }
+}
 ?>
 <html>
 <head>
@@ -56,6 +105,15 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['admin']) ){
 
 	<div id="content" class="large-10 cell"><!--Main content-->
         <?php
+        if(isset($_SESSION['feedback'])){
+            echo "<div>";
+            echo "<div class=\"callout\">";
+            echo "<p>{$_SESSION['feedback']}</p>";
+            echo "</div>";
+            echo "</div>";
+            unset($_SESSION['feedback']);
+
+        }
 					if(isset($_GET['view'])){
 						$view = $_GET['view'];
 						switch($view){
@@ -191,3 +249,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['admin']) ){
     <script src="js/app.js"></script>
 </body>
 </html>
+<?php
+
+
+?>

@@ -160,7 +160,9 @@ class DB
 		$sql = "DELETE FROM bus WHERE registration = '$registration' ";
 		if($this->conn->query($sql)){
 			return true;
-		}else return false;
+		} else {
+			return $this->conn->error;
+		}
 	}
 
 	/**

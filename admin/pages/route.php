@@ -36,7 +36,7 @@
 			echo "<td>{$route->distance} kms</td>";
 			echo "<td>{$route->duration} mins</td>";
 			echo "<td>Edit</td>";
-			echo "<td>Delete</td>";
+			echo "<td><a href='index.php?action=delete&view=route&routeId={$route->route_id}'>Delete</td>";
 		echo "</tr>";
 	}
 

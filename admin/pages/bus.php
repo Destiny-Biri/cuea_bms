@@ -29,7 +29,8 @@
 			echo "<td>{$bus->model}</td>";
 			echo "<td>{$bus->no_of_seats}</td>";
 			echo "<td><a href=\"index.php?action=edit&view=bus&id={$bus->registration}\"><i class=\"fas fa-edit\"></i></a> ";
-			echo "<a data-open=\"modal_{$bus->registration}\"><i class=\"fas fa-trash\"></i></a>  <a href=\"index.php?action=delete&view=bus&id={$bus->registration}\"><i class=\"fas fa-map-marker-alt\"></i></a></td>";
+		    echo "<a href=\"index.php?action=delete&view=bus&reg={$bus->registration}\"><i class=\"fas fa-trash\"></i></a></td>";
+
 		echo "</tr>";
 		echo "<div class=\"reveal\" id=\"modal_{$bus->registration}\">";
 		echo "<h1>Delete Vehicle</h1>";
