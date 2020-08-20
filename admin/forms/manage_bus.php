@@ -26,7 +26,7 @@
 		$noOfSeats = $_POST['txt_no_of_seats'];
 		$result = $db->addBus($registration,$color,$model,$coach,$noOfSeats,$normalSeats, $premiumSeats);
 		if($result){
-			header('Location:index.php?action=view&view=bus');
+			header('Location:index.php?action=view&view=bus&status=1&response=The bus was added successfully.');
 		}
 
 		//If it succeeds
