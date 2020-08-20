@@ -172,9 +172,11 @@ class DB
 	 */
 	function deleteJourney(int $journeyId) {
 		$sql = "DELETE FROM journey WHERE journey_id = $journeyId ";
-		if($this->conn->query($sql)){
+		if($this->conn->query($sql)) {
 			return true;
-		}else return false;
+		}else {
+				return $this->conn->error;
+			}
 	}
 
 	/**
@@ -184,9 +186,11 @@ class DB
 	 */
 	function deleteRoute(int $routeId) {
 		$sql = "DELETE FROM route WHERE route_id = $routeId ";
-		if($this->conn->query($sql)){
+		if($this->conn->query($sql)) {
 			return true;
-		}else return false;
+		}else {
+				return $this->conn->error;
+			}
 	}
 
 
