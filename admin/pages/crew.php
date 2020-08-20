@@ -18,9 +18,12 @@ require ('pages/inc.feedback.php');
 ?>
 <table>
     <thead>
+    <tr>
         <td>Crew Name</td>
         <td>Crew Type</td>
         <td>Action</td>
+    </tr>
+
     </thead>
     <tbody>
     <?php
