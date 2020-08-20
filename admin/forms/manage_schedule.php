@@ -28,10 +28,10 @@
 			//@TODO: Clear the $_POST to prevent resubmission
 			// Redirect the user to the index page
 			// Show a success message
-			header('Location:index.php?action=view&view=trip');
+			header('Location:index.php?action=view&view=trip&status=1&response=The scheduled trips were added successfully.');
 		}else{
 			// Display the error message returned
-			var_dump($result);
+			header("Location:index.php?action=view&view=trip&status=1&response=$result");
 		}
 		
 
