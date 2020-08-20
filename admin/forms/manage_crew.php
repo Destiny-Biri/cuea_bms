@@ -7,7 +7,7 @@ if(isset($_POST['btn_manageCrew'])){
     $db = new DB();
     $result = $db->addNewCrew($driverName,$crew_type);
     if($result){
-        header('Location:index.php?action=view&view=crew');
+        header('Location:index.php?action=view&view=crew&status=1&response=A new member was added.');
     }
 }
 ?>

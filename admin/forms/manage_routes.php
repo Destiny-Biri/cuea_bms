@@ -8,7 +8,9 @@ if(isset($_POST['btn_manage_route'])){
 	$route_name = $start_point.'-'.$end_point;
 	$db = new DB();
 	$result = $db->addRoute($route_name,$start_point,$end_point);
-	print($result);
+	if($result){
+	    header("Location:index.php?action=view&view=route&status=1&response=The route was added successfully");
+    }
 	
 }
 
