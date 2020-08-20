@@ -150,8 +150,41 @@ class DB
 	}
 
 
-	Function deleteBus()
+	/**
+	 * Delete a bus
+	 * @param String $registration
+	 * @return bool
+	 */
+	Function deleteBus(String $registration)
 	{
+		$sql = "DELETE FROM bus WHERE registration = '$registration' ";
+		if($this->conn->query($sql)){
+			return true;
+		}else return false;
+	}
+
+	/**
+	 * Delete a journey
+	 * @param int $journeyId
+	 * @return bool
+	 */
+	function deleteJourney(int $journeyId) {
+		$sql = "DELETE FROM journey WHERE journey_id = $journeyId ";
+		if($this->conn->query($sql)){
+			return true;
+		}else return false;
+	}
+
+	/**
+	 * Delete routes
+	 * @param int $routeId
+	 ** @return bool
+	 */
+	function deleteRoute(int $routeId) {
+		$sql = "DELETE FROM route WHERE route_id = $routeId ";
+		if($this->conn->query($sql)){
+			return true;
+		}else return false;
 	}
 
 
@@ -565,6 +598,9 @@ class DB
             return $e->getMessage();
         }
     }
+
+
+
 
 
 }
