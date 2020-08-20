@@ -1,8 +1,8 @@
 body {
-	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(images/home2.jpg) no-repeat;
-	background-attachment: fixed;
-	background-size: cover;
-	background-position: center;
+	/*background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(images/home2.jpg) no-repeat;*/
+	/*background-attachment: fixed;*/
+	/*background-size: cover;*/
+	/*background-position: center;*/
 	font-family: 'Montserrat', serif;
 	font-size: 14px;
 }
@@ -10,7 +10,7 @@ body {
 h1,
 h2,
 h3 {
-	font-family: 'Montserrat';
+	font-family: 'Montserrat', sans-serif;
 	font-weight: 600;
 }
 
