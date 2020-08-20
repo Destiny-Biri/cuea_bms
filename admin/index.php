@@ -34,7 +34,7 @@ if(isset($_GET['action'])){
 					}else{
 						$_SESSION['feedback'] = $result;
 					}
-					header('Location:index.php?action=view&view=journey');
+					header('Location:index.php?action=view&view=trip');
 				}
                 break;
             case 'route':
