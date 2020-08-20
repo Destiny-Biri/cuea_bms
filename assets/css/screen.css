@@ -1,0 +1,65 @@
+body {
+	font-family: 'Montserrat', serif;
+	font-size: 14px;
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Montserrat';
+	font-weight: 600;
+}
+
+
+#footer {
+	clear: both;
+}
+
+table {
+	width: 100%;
+}
+
+#contentDiv h2 {
+	font-size: 2rem;
+	text-transform: uppercase;
+}
+
+.dashboard_cell {
+	border: 1px solid grey;
+
+}
+
+#sidebar {
+	background-color: burlywood;
+
+}
+
+html,
+body,
+#wrapper {
+	height: 100%;
+}
+
+body>#wrapper {
+	height: auto;
+	min-height: 100%;
+}
+
+#main {
+	padding-bottom: 150px;
+	/*  same height as the footer */
+	overflow: hidden;
+	top: 75px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: yellow;
+}
+
+#footer {
+	position: relative;
+	background-color: blue;
+	/* negative value of footer height */
+	height: 120px;
+	clear: both;
+}

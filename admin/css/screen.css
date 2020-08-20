@@ -1,0 +1,99 @@
+body {
+	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(images/home2.jpg) no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	font-family: 'Montserrat', serif;
+	font-size: 14px;
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Montserrat';
+	font-weight: 600;
+}
+
+
+#footer {
+	clear: both;
+}
+
+table {
+	width: 100%;
+}
+
+#contentDiv h2 {
+	font-size: 2rem;
+	text-transform: uppercase;
+}
+
+.dashboard_cell {
+	border: 1px solid grey;
+
+}
+
+#sidebar {
+	background-color: #000;
+
+}
+
+.menu li a{
+	text-transform: capitalize;
+	font-weight: bold;
+	color: #FFF;
+}
+html,
+body,
+#wrapper {
+	height: 100%;
+}
+
+body>#wrapper {
+	height: auto;
+	min-height: 100%;
+}
+
+#main {
+	padding-bottom: 150px;
+	/*  same height as the footer */
+	overflow: hidden;
+	top: 75px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: yellow;
+}
+
+#footer {
+	position: relative;
+	background-color: #000;
+	/* negative value of footer height */
+	height: 120px;
+	clear: both;
+}
+
+.top-bar,.top-bar ul{
+	background-color: #000;
+}
+
+.top-bar ul li a{
+	color: #FFF;
+	font-weight: bold;
+}
+.cell {
+	color: #FFF;
+}
+
+#content label {
+	color: #FFF;
+	background-color: rgba(0,0,0, 0.5);
+	padding: 10px 10px 10px 10px;
+}
+
+#content {
+	background-color: rgba(0,0,0, 0.5);
+}
+#dashboard{
+	/*background-color: rgba(0,0,0, 0.5);*/
+ }
