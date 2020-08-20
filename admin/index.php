@@ -17,11 +17,13 @@ if(isset($_GET['action'])){
                     $db = new DB();
                     $result = $db->deleteBus($registration);
                     if(is_bool($result)){
-                        $_SESSION['feedback'] = "The bus was successfully deleted";
+                        $status = true;
+                        $response = "The bus was successfully deleted";
                     }else{
-						$_SESSION['feedback'] = $result;
+						$status = false;
+						$response = $result;
                     }
-                    header('Location:index.php?action=view&view=bus');
+                    header("Location:index.php?action=view&view=bus&status=$status&response=$response");
                 }
                 break;
             case 'journey':
@@ -30,11 +32,13 @@ if(isset($_GET['action'])){
 					$db = new DB();
 					$result = $db->deleteJourney($journeyId);
 					if(is_bool($result)){
-						$_SESSION['feedback'] = "The journey was successfully deleted";
+						$status = true;
+						$response = "The journey was successfully deleted";
 					}else{
-						$_SESSION['feedback'] = $result;
+						$status = true;
+						$response = $result;
 					}
-					header('Location:index.php?action=view&view=trip');
+					header("Location:index.php?action=view&view=trip&status=$status&response=$response");
 				}
                 break;
             case 'route':
@@ -43,11 +47,14 @@ if(isset($_GET['action'])){
 					$db = new DB();
 					$result = $db->deleteRoute($routeId);
 					if(is_bool($result)){
-						$_SESSION['feedback'] = "The route was successfully deleted";
+						$status = true;
+					    $response = "The route was successfully deleted";
 					}else{
-						$_SESSION['feedback'] = $result;
+					    $status = false;
+					    $response = $result;
+
 					}
-					header('Location:index.php?action=view&view=route');
+					header("Location:index.php?action=view&view=route&status={$status}&response={$response}");
 				}
         }
     }
@@ -105,15 +112,7 @@ if(isset($_GET['action'])){
 
 	<div id="content" class="large-10 cell"><!--Main content-->
         <?php
-        if(isset($_SESSION['feedback'])){
-            echo "<div>";
-            echo "<div class=\"callout\">";
-            echo "<p>{$_SESSION['feedback']}</p>";
-            echo "</div>";
-            echo "</div>";
-            unset($_SESSION['feedback']);
 
-        }
 					if(isset($_GET['view'])){
 						$view = $_GET['view'];
 						switch($view){
@@ -153,9 +152,10 @@ if(isset($_GET['action'])){
 											include('pages/bus.php');
 										break;
 										case 'add':
-											include('forms/manage_bus.php');
+										    include('forms/manage_bus.php');
 										break;
 										case 'edit':
+
 											include('forms/manage_bus.php');
 										break;
 									}
@@ -171,6 +171,7 @@ if(isset($_GET['action'])){
 											include('pages/route.php');
 										break;
 										case 'add':
+											include ('pages/inc.feedback.php');
 											include('forms/manage_routes.php');
 										break;
 									}
@@ -184,6 +185,7 @@ if(isset($_GET['action'])){
 											include('pages/trip.php');
 										break;
 										case 'add':
+											include ('pages/inc.feedback.php');
 											include('forms/manage_schedule.php');
 										break;
 									}
@@ -197,6 +199,7 @@ if(isset($_GET['action'])){
 											include('pages/crew.php');
 										break;
 										case 'add':
+											include ('pages/inc.feedback.php');
 											include('forms/manage_crew.php');
 										break;
 									}
@@ -210,6 +213,7 @@ if(isset($_GET['action'])){
                                             include('pages/users.php');
                                             break;
                                         case 'add':
+											include ('pages/inc.feedback.php');
                                             include('forms/manage_users.php');
                                             break;
                                     }

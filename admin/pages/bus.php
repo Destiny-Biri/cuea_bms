@@ -8,8 +8,10 @@
 	<div class="large-3 cell"><a class="button" href="index.php?action=add&view=bus"><i class="fas fa-plus"></i> Add A Bus</a></div>
 </div>
 
-
 <p class="lead">This page allows you to manage the buses that you have in your fleet.</p>
+<?php
+    require ('pages/inc.feedback.php');
+?>
 <table>
 <thead>
 	<tr>

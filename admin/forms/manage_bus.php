@@ -36,6 +36,7 @@
 ?>
 
 <h2>Add Bus</h2>
+
 <form method="POST">
 				<?php if(isset($_GET['action']) && isset($_GET['id']) ) {
 					$action = $_GET['action'];

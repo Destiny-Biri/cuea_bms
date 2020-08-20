@@ -14,6 +14,9 @@
 <p>
 This page shall assist you in scheduling trips. Ensure that you dont overwork the crew members by assigning them multiple journeys without breaks.
 </p>
+<?php
+require ('pages/inc.feedback.php');
+?>
 <table>
 	<thead>
 		<td>Departure Date</td>

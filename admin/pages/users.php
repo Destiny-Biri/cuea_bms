@@ -13,6 +13,9 @@ $users = $db->fetchAllUsers();
 <!--    </div>-->
 </div>
 <p class="lead">Use this section to manage admin users and customers</p>
+<?php
+require ('pages/inc.feedback.php');
+?>
 <table>
     <thead>
         <tr>

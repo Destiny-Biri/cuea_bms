@@ -13,6 +13,9 @@ $crewMembers = $db->fetchAllCrew();
 </div>
 </div>
 <p class="lead">Use this section to manage the drivers and the conductors</p>
+<?php
+require ('pages/inc.feedback.php');
+?>
 <table>
     <thead>
         <td>Crew Name</td>

@@ -13,6 +13,9 @@
 </div>
 
 <p class="lead">This page allows you to manage the routes/destinations that we provide to our customers.The routename is generated automatically from the the start point and end point.</p>
+<?php
+require ('pages/inc.feedback.php');
+?>
 <table>
 <thead>
 	<tr>
