@@ -56,6 +56,21 @@ if(isset($_GET['action'])){
 					}
 					header("Location:index.php?action=view&view=route&status={$status}&response={$response}");
 				}
+			case 'crew':
+				if(isset($_GET['crewId'])){
+					$crewId = $_GET['crewId'];
+					$db = new DB();
+					$result = $db->deleteCrewMember($crewId);
+					if(is_bool($result)){
+						$status = true;
+						$response = "The member was successfully deleted";
+					}else{
+						$status = false;
+						$response = $result;
+
+					}
+					header("Location:index.php?action=view&view=crew&status={$status}&response={$response}");
+				}
         }
     }
   }

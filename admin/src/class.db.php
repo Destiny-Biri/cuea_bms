@@ -193,6 +193,15 @@ class DB
 			}
 	}
 
+	function deleteCrewMember(int $crewId) {
+		$sql = "DELETE FROM crew WHERE crew_id = $crewId ";
+		if($this->conn->query($sql)) {
+			return true;
+		}else {
+			return $this->conn->error;
+		}
+	}
+
 
 	Function updateBus()
 	{
