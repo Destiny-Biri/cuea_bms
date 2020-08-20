@@ -6,7 +6,7 @@ if(isset($_GET['status'])){
 		$status = "error";
 	}
 	echo "<div>";
-		echo "<div data-alert class=\"callout $status small\">";
+		echo "<div data-alert data-closable='slide-out-right' class=\"callout $status small alert\">";
 		echo "<button class=\"close-button\" aria-label=\"Dismiss alert\" type=\"button\" data-close>
     <span aria-hidden=\"true\">&times;</span>
   </button>";
