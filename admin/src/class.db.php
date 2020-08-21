@@ -678,7 +678,26 @@ class DB
 
 	}
 
-
+    /**
+     * @param int $booking_id
+     * @param String $status
+     * @return bool|string
+     */
+    public function confirmBooking(int $booking_id, String $status)
+    {
+        $sql = "UPDATE booking SET order_status = '{$status}' WHERE booking_id = $booking_id";
+        try{
+            if($this->conn->query($sql)){
+                $result = $this->conn->affected_rows;
+                if($result > 0){
+                    return true;
+                }
+            }
+        }
+        catch (Exception $e){
+            return $e->getMessage();
+        }
+    }
 
 
 }

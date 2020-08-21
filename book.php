@@ -19,8 +19,8 @@ $startPoint = $db->fetchDistinctDestinations('start_point');
 $endPointArray = $db->fetchDistinctDestinations('end_point');
 ?>
 <?php
-if(isset($_POST['btn_checkout'])){
-	
+if((isset($_POST['btn_checkout']))&&(isset($_POST['hid_journeyId']))){
+
 	//Get the journey id from the hidden field
 	$journeyId = $_POST['hid_journeyId'];
 	

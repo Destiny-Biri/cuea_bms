@@ -76,6 +76,23 @@ if(isset($_GET['action'])){
         }
     }
   }
+  if ($action == 'validate'){
+      if(isset($_GET['booking_id'])){
+          $booking_id = (int)$_GET['booking_id'];
+          $db = new DB();
+          $status = 'Complete';
+          $result = $db->confirmBooking($booking_id, $status);
+          if(is_bool($result)){
+              $status = $result;
+              $response = "THe booking was confirmed";
+          }else{
+              $status = false;
+              $response = $result;
+          }
+      }
+      header("Location: index.php?action=view&view=payments&status=$status&response=$response");
+
+  }
 }
 ?>
 <html lang="en">
@@ -121,7 +138,7 @@ if(isset($_GET['action'])){
 		<ul class="menu vertical">
 			<li><a title="Add and edit vehicles in your fleet." href="index.php?action=view&view=bus">Manage Vehicles</a></li>
 			<li><a href="index.php?action=view&view=route">Manage Routes</a></li>
-			<li><a href="index.php?action=view&view=trip">Manage Schedule</a></li>
+			<li><a href="index.php?action=view&view=trip">Manage Trip</a></li>
 			<li><a href="index.php?action=view&view=crew">Manage Crew</a></li>
 			<li><a href="index.php?action=view&view=users">Manage Users</a></li>
 		</ul>
