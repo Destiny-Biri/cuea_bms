@@ -37,7 +37,7 @@ require ('pages/inc.feedback.php');
 			echo "<td>{$trip->route->route_name}</td>";
 			echo "<td>{$trip->driverId}</td>";
 			echo "<td>{$trip->conductorId}</td>";
-			echo "<td>Edit View <a href='index.php?action=delete&view=journey&journeyId={$trip->journeyId}'>Delete<a></a></td>";
+			echo "<td>Edit <a href='index.php?action=detailed&view=trip&journeyId={$trip->journeyId}'>View</a> <a href='index.php?action=delete&view=journey&journeyId={$trip->journeyId}'>Delete<a></a></td>";
 		echo "</tr>";
 	}
 

@@ -656,6 +656,30 @@ class DB
 
 	}
 
+	public function fetchJourneyDetails(int $journeyId)
+	{
+		$details = Array();
+		try{
+			$sql = "SELECT * FROM booking_detail AS bd, booking as b, journey as j, route as r WHERE bd.journeyId = $journeyId AND bd.journeyId = b.journey_id AND r.route_id = j.route_id";
+			if($result = $this->conn->query($sql)){
+				if($result->num_rows > 0 ) {
+					while ($row = $result->fetch_assoc()){
+						$details[] =  $row;
+					}
+					return $details;
+				}else{
+					return $details;
+				}
+			}
+		} catch (Exception $e){
+			return $e->getMessage();
+		}
+
+
+	}
+
+
+
 
 }
 

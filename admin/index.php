@@ -211,6 +211,9 @@ if(isset($_GET['action'])){
 											include ('pages/inc.feedback.php');
 											include('forms/manage_schedule.php');
 										break;
+                                        case 'detailed':
+                                            include ('pages/detailed_trip.php');
+                                            break;
 									}
 								}
 							break;
