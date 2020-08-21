@@ -56,6 +56,7 @@ if(isset($_GET['action'])){
 					}
 					header("Location:index.php?action=view&view=route&status={$status}&response={$response}");
 				}
+				break;
 			case 'crew':
 				if(isset($_GET['crewId'])){
 					$crewId = $_GET['crewId'];
@@ -71,12 +72,13 @@ if(isset($_GET['action'])){
 					}
 					header("Location:index.php?action=view&view=crew&status={$status}&response={$response}");
 				}
+				break;
         }
     }
   }
 }
 ?>
-<html>
+<html lang="en">
 <head>
 	<title>Admin</title>
 	<link rel="stylesheet" href="css/reset.css">
@@ -189,6 +191,12 @@ if(isset($_GET['action'])){
 											include ('pages/inc.feedback.php');
 											include('forms/manage_routes.php');
 										break;
+                                        case 'edit':
+                                            if(isset($_GET['routeId'])){
+												include "forms/manage_routes.php";
+                                            }
+                                            break;
+
 									}
 								}
 							break;

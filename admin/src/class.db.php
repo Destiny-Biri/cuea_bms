@@ -279,9 +279,27 @@ class DB
 		$query = "DELETE FROM route WHERE route_id = $route_id";
 	}
 
-	Function updateRoute()
+	/**
+	 * @param int $routeId
+	 * @param String $start_point
+	 * @param String $end_point
+	 * @param String $route_name
+	 * @return bool|string
+	 */
+	Function updateRoute(int $routeId, String $start_point, String $end_point, String $route_name)
 	{
-		$query = "REPLACE INTO route";
+		try {
+			$sql = "UPDATE route SET route_name = '$route_name', start_point = '$start_point', end_point = '$end_point' WHERE route_id = $routeId";
+			if($this->conn->query($sql)){
+				return true;
+			}else{
+				return $this->conn->error;
+			}
+		} catch (Exception $e){
+			return $e->getMessage();
+		}
+
+
 	}
 
 
@@ -614,8 +632,29 @@ class DB
         }
     }
 
+	/**
+	 * Get the route using the route id
+	 * @param int $routeId
+	 * @return Route|string
+	 */
+	public function fetchRouteById(int $routeId)
+	{
+		try {
+			$sql = "SELECT * FROM route WHERE route_id = $routeId";
+			if($result = $this->conn->query($sql)){
+				if($result->num_rows > 0 ) {
+					$row = $result->fetch_assoc();
+					$route = new Route($row['start_point'], $row['end_point'],$routeId,$row['route_name'],$row['distance'],
+						$row['duration']);
+					return $route;
+				}
 
+			}
+		} catch (Exception $e){
+			return $e->getMessage();
+		}
 
+	}
 
 
 }

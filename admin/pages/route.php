@@ -22,8 +22,7 @@ require ('pages/inc.feedback.php');
 		<td>Route Name</td>
 		<td>Start point</td>
 		<td>Destination</td>
-		<td>Waypoints</td>
-		<td>Distance</td>
+        <td>Distance</td>
 		<td>Duration</td>
 		<td></td>
 		<td></td>
@@ -35,10 +34,9 @@ require ('pages/inc.feedback.php');
 			echo "<td>{$route->route_name}</td>";
 			echo "<td>{$route->start_point}</td>";
 			echo "<td>{$route->end_point}</td>";
-			echo "<td></td>";
 			echo "<td>{$route->distance} kms</td>";
 			echo "<td>{$route->duration} mins</td>";
-			echo "<td>Edit</td>";
+			echo "<td><a href='index.php?action=edit&view=route&routeId={$route->route_id}'>Edit</a> </td>";
 			echo "<td><a href='index.php?action=delete&view=route&routeId={$route->route_id}'>Delete</td>";
 		echo "</tr>";
 	}
