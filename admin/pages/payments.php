@@ -6,6 +6,9 @@ $result = $db->fetchAllTransactions();
 ?>
 <h2>Payments</h2>
 <?php
+require ('pages/inc.feedback.php');
+?>
+<?php
 if(count($result) == 0) {
     echo "<p class='lead'> You have not received any payments.</p>";
 }else{
@@ -16,6 +19,7 @@ if(count($result) == 0) {
     echo "<td>Amount</td>";
     echo "<td>Booking Id</td>";
     echo "<td>Transaction Code</td>";
+    echo "<td></td>";
     echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -25,6 +29,7 @@ if(count($result) == 0) {
             echo "<td>{$res['amount']}</td>";
             echo "<td>{$res['booking_id']}</td>";
             echo "<td>{$res['transaction_code']}</td>";
+            echo "<td><a class='button' href='index.php?action=validate&view=payments&booking_id={$res['booking_id']}'>VALIDATE</a></td>";
         echo "</tr>";
     }
     echo "</tbody>";

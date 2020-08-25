@@ -4,6 +4,9 @@ $db = new DB();
 if(isset($_GET['journeyId'])) {
 	$journeyId = (int)$_GET['journeyId'];
 	$result  = $db->fetchJourneyDetails($journeyId);
+
+//	var_dump($journey);
+//	die();
 }
 
 ?>
@@ -27,6 +30,8 @@ if(!is_string($result)){
 	echo "<td>Booking Date</td>";
 	echo "<td>Seat No</td>";
 	echo "<td>Assigned To</td>";
+	echo "<td>Status</td>";
+	echo "<td>Amount Paid/Due</td>";
 	echo "</tr>";
 	echo "</thead>";
 	echo "<tbody>";
@@ -36,6 +41,8 @@ if(!is_string($result)){
 		echo "<td>{$detail['booking_time']}</td>";
 		echo "<td>{$detail['seat_id']}</td>";
 		echo "<td>{$detail['assignedTo']}</td>";
+		echo "<td>{$detail['order_status']}</td>";
+        echo "<td>{$detail['amount']}</td>";
 		echo "</tr>";
 	}
 	echo "</tbody>";

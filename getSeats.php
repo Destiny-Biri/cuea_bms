@@ -6,7 +6,6 @@ if(isset($_GET['journeyId'])){
 
 
 	echo "<input type='hidden' name='hid_journeyId' value=\"$journeyId\" id='hid_journeyId'>  ";
-	
 	$db = new DB();
 	$availableSeats = $db->fetchAvailableSeatsForJourney($journeyId);
 	$numOfSeats = floor((count($availableSeats,COUNT_RECURSIVE)/9));	
