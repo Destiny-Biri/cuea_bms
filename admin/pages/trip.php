@@ -30,6 +30,9 @@ require ('pages/inc.feedback.php');
 	<tbody>
 	<?php
 	foreach($trips as $trip){
+		$modalId = 1;
+		$url =  "index.php?action=delete&view=journey&journeyId={$trip->journeyId}";
+		displayDeleteModal($modalId, $url);
 		echo "<tr>";
 			echo "<td>{$trip->departureDate}</td>";
 			echo "<td>{$trip->departureTime}</td>";
@@ -37,7 +40,7 @@ require ('pages/inc.feedback.php');
 			echo "<td>{$trip->route->route_name}</td>";
 			echo "<td>{$trip->driverName}</td>";
 			echo "<td>{$trip->conductorName}</td>";
-			echo "<td>Edit <a href='index.php?action=detailed&view=trip&journeyId={$trip->journeyId}'>View</a> <a href='index.php?action=delete&view=journey&journeyId={$trip->journeyId}'>Delete<a></a></td>";
+			echo "<td>Edit <a href='index.php?action=detailed&view=trip&journeyId={$trip->journeyId}'>View</a> <a data-open='modal_$modalId' >Delete<a></a></td>";
 		echo "</tr>";
 	}
 

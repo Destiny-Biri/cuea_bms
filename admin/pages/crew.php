@@ -28,10 +28,13 @@ require ('pages/inc.feedback.php');
     <tbody>
     <?php
     foreach ($crewMembers as $crew){
+		$modalId = 1;
+		$url = "index.php?action=delete&view=crew&crewId=$crew->crew_id";
+		displayDeleteModal($modalId, $url);
         echo "<tr>";
         echo "<td>{$crew->crew_name}</td>";
         echo "<td>{$crew->crew_type}</td>";
-        echo "<td><a href='index.php?action=delete&view=crew&crewId=$crew->crew_id'>Delete</a></td>";
+        echo "<td><a data-open='modal_$modalId'>Delete</a></td>";
         echo "</tr>";
     }
     ?>

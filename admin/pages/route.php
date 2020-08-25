@@ -30,14 +30,16 @@ require ('pages/inc.feedback.php');
 </thead>
 <?php 
 	foreach($routes as $route){
+		$modalId = 1;
+		$url =  "index.php?action=delete&view=route&routeId={$route->route_id}";
+		displayDeleteModal($modalId, $url);
 		echo "<tr>";
 			echo "<td>{$route->route_name}</td>";
 			echo "<td>{$route->start_point}</td>";
 			echo "<td>{$route->end_point}</td>";
-//			echo "<td>{$route->distance} kms</td>";
-//			echo "<td>{$route->duration} mins</td>";
+
 			echo "<td><a href='index.php?action=edit&view=route&routeId={$route->route_id}'>Edit</a> </td>";
-			echo "<td><a href='index.php?action=delete&view=route&routeId={$route->route_id}'>Delete</td>";
+			echo "<td><a data-open='modal_$modalId''>Delete</td>";
 		echo "</tr>";
 	}
 
