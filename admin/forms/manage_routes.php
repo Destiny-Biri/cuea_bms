@@ -20,27 +20,20 @@ if(isset($_GET['routeId'])){
 
 
 if(isset($_POST['btn_manage_route'])){
-	$start_point = $_POST['txt_start_point'];
-	$end_point = $_POST['txt_end_point'];
+	$start_point = ucfirst(strtolower(trim($_POST['txt_start_point'])));
+	$end_point = ucfirst(strtolower(trim($_POST['txt_end_point'])));
 	$route_name = $start_point.'-'.$end_point;
 	$db = new DB();
 	if(isset($_POST['hid_routeId'])) {
 	    $result = $db->updateRoute($routeId, $start_point, $end_point, $route_name);
-	    if(is_string($result)){
-	        $status = false;
-	        $response = $result;
-        }else{
-			$status = $result;
-			$response = "The route was updated successfully/";
-        }
-    }else{
+	    $successString = "The route was updated successfully/";
+	    manageErrors($result, $successString, "route");
+	}else{
 		$result = $db->addRoute($route_name,$start_point,$end_point);
-		$status = 1;
-		$response = "Route was added successfully";
-    }
-	if($result){
-	    header("Location:index.php?action=view&view=route&status=$status&response=$response");
-    }
+		$successString = "Route was added successfully";
+		manageErrors($result, $successString, "route");
+	}
+
 	
 }
 

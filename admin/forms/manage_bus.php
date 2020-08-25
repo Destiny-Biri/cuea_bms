@@ -23,14 +23,11 @@
 		$coach = $_POST['sel_coach'];
 		$premiumSeats = $_POST['txt_seats_vip'];
 		$normalSeats = $_POST['txt_seats_normal'];
-		$noOfSeats = $_POST['txt_no_of_seats'];
-		$result = $db->addBus($registration,$color,$model,$coach,$noOfSeats,$normalSeats, $premiumSeats);
-		if($result){
-			header('Location:index.php?action=view&view=bus&status=1&response=The bus was added successfully.');
-		}
-
-		//If it succeeds
-		//Add the seats to the busseats registry
+		$totalSeats = $premiumSeats + $normalSeats;
+//		$noOfSeats = $_POST['txt_no_of_seats'];
+		$result = $db->addBus($registration,$color,$model,$coach,$totalSeats,$normalSeats, $premiumSeats);
+		$successString = "The bus was added successfully";
+		manageErrors($result, $successString, "bus");
 		
 	}
 ?>
@@ -49,11 +46,16 @@
 
 
 				<div class="grid-x grid-padding-x">
-					<div class="large-4 cell"><label>VIP/Premium Seats</label><input name="txt_seats_vip" type="number" min="0" max="50" value="5" required></div>
-					<div class="large-4 cell"><label>Regular Seats</label><input name="txt_seats_normal" type="number" value="45" min="0" max="50" required></div>
+					<div class="large-4 cell"><label>VIP/Premium Seats</label><input name="txt_seats_vip" id="txt_seats_vip"
+                                                                                     type="number" min="0" max="50"
+                                                                                     value="5" required onchange="add()"></div>
+					<div class="large-4 cell"><label>Regular Seats</label><input name="txt_seats_normal" id="txt_seats_normal"
+                                                                                 type="number" value="45" min="0"
+                                                                                 max="50" required onchange="add()"></div>
 						<div class="large-4 cell">
 						<label for="txt_no_of_seats">No of Seats</label>
-						<input type="number" min="0" max="50" name="txt_no_of_seats" label="Enter Registration" id="txt_no_of_seats" value="<?php if(isset($noOfSeats)) {echo $noOfSeats;} else {echo "50";} ?>" required>	</div>
+						<input type="number" min="0" max="50" disabled name="txt_no_of_seats" label="Enter Registration"
+                               id="txt_no_of_seats"  required>	</div>
 				</div>
 
 				
@@ -89,4 +91,13 @@
 					</select>
 
 				<input type="submit" name="btn_manage_bus" val="SAVE" class="button">			
-			</form>	
+			</form>
+<script type="application/javascript">
+    function add() {
+        var vipSeats = document.getElementById("txt_seats_vip").value;
+        var normalSeats = document.getElementById("txt_seats_normal").value;
+        var totalSeats =parseInt(vipSeats) + parseInt(normalSeats); //addition of two values
+        document.getElementById("txt_no_of_seats").value = totalSeats;
+    }
+
+</script>

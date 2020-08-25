@@ -18,7 +18,9 @@ class Trip{
 	public $vehicle;
 	public $route;
 
-	function __construct(String $journeyId,$departureDate,$departureTime,String $vehicleReg, int $routeId, int $driverId, int $conductorId, String $color, $model, $coach, $seats, $start_point, $end_point,$routeName,$distance,$duration) {
+	function __construct(String $journeyId,$departureDate,$departureTime,String $vehicleReg, int $routeId, int
+	$driverId, int $conductorId, String $color, $model, $coach, $seats, $start_point, $end_point,$routeName,
+						 $distance,$duration, $driverName, $conductorName) {
 		$this->journeyId = $journeyId;
 		$this->departureDate = $departureDate;
 		$this->departureTime = $departureTime;
@@ -26,7 +28,8 @@ class Trip{
 		$this->routeId = $routeId;
 		$this->driverId = $driverId;
 		$this->conductorId = $conductorId;
-
+		$this->driverName = $driverName;
+		$this->conductorName = $conductorName;
 		$this->vehicle = new Bus($vehicleReg,$color,$model,$coach,$seats);
 		$this->route = new Route($start_point,$end_point,$routeId,$routeName,$distance, $duration);
 	}

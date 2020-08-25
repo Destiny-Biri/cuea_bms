@@ -9,30 +9,31 @@
 		$route = $_POST['sel_route'];
 		$departureDate = $_POST['txt_scheduled_date'];
 		$departureTime = $_POST['txt_scheduled_time'];
-		$driverId = $_POST['sel_driver'];
+
 		$vehicleReg = $_POST['sel_vehicle'];
-		$conductorId = $_POST['sel_conductor'];
+		//Split
+        $conductorDetails = explode('_',$_POST['sel_conductor']);
+		$conductorId = $conductorDetails[0];
+		$conductorName = $conductorDetails[1];
+
+		$driverDetails = explode("_",$_POST['sel_driver']);
+		$driverId = $driverDetails[0];
+		$driverName = $driverDetails[1];
+
 		$normalPrice = $_POST['txt_normalPrice'];
 		$premiumPrice = $_POST['txt_premiumPrice'];
 		$endDate = $_POST['txt_enddate'];
 
 		///Check if this is a return journey
 		if(isset($_POST['chk_makeRoutine'])) {
-			$result = $db->createRecurringJourney($departureDate,$departureTime,$vehicleReg,$route,$driverId,$conductorId,$normalPrice,$premiumPrice,$endDate);
+			$result = $db->createRecurringJourney($departureDate,$departureTime,$vehicleReg,$route,$driverId,
+                $conductorId,$normalPrice,$premiumPrice,$endDate,$driverName, $conductorName);
 		} else{
-			$result = $db->addScheduledTrip($departureDate,$departureTime,$vehicleReg,$route,$driverId,$conductorId,$normalPrice,$premiumPrice);
+		    $result = $db->addScheduledTrip($departureDate,$departureTime,$vehicleReg,$route,$driverId,$conductorId,
+                $normalPrice,$premiumPrice,$driverName,$conductorName);
 		}
-
-		
-		if($result == true){
-			//@TODO: Clear the $_POST to prevent resubmission
-			// Redirect the user to the index page
-			// Show a success message
-			header('Location:index.php?action=view&view=trip&status=1&response=The scheduled trips were added successfully.');
-		}else{
-			// Display the error message returned
-			header("Location:index.php?action=view&view=trip&status=1&response=$result");
-		}
+		$successString = "The scheduled trips were added successfully.";
+		manageErrors($result,$successString, "trip");
 		
 
 	}
@@ -92,7 +93,7 @@
 			<select name="sel_driver">
 			<?php
 					foreach($drivers as $driver){
-						echo "<option value=\"{$driver->crew_id}\">";
+						echo "<option value=\"{$driver->crew_id}_{$driver->crew_name}\">";
 						echo $driver->crew_name;
 						echo "</option>";
 					}
@@ -107,7 +108,7 @@
 			<select name="sel_conductor">
 			<?php
 					foreach($conductors as $conductor){
-						echo "<option value=\"{$conductor->crew_id}\">";
+						echo "<option value=\"{$conductor->crew_id}_{$conductor->crew_name}\">";
 						echo $conductor->crew_name;
 						echo "</option>";
 					}
@@ -118,13 +119,13 @@
 
 		<div class="large-6 cell">
 			<label for="txt_normalPrice">Cost of normal seat
-			<input type="text" name="txt_normalPrice" id="txt_normalPrice">
+			<input type="text" name="txt_normalPrice" id="txt_normalPrice" required>
 			</label>
 		</div>
 
 		<div class="large-6 cell">
 			<label for="txt_premiumPrice">Cost of premium seat
-			<input type="text" name="txt_premiumPrice" id="txt_premiumPrice">
+			<input type="text" name="txt_premiumPrice" id="txt_premiumPrice" required>
 			</label>
 		</div>
 

@@ -227,18 +227,27 @@ class DB
 	 * @param String departureTime H:i:s
 	 * @param int $premium_price Price of premium seats
 	 * @param int $normal_price Price of normal seats
-	 * @return
 	 */
-	function addScheduledTrip(String $departureDate, String $departureTime, String $vehicleReg, String $routeId, String $driverId, String $conductorId, int $normal_price, int $premium_price): bool
-	{
-		$sql = "INSERT INTO journey(departure_date, departure_time, vehicle_reg,route_id, driver_id, conductor_id, normal_price, premium_price) VALUES('$departureDate', '$departureTime', '$vehicleReg', $routeId, $driverId, $conductorId, $normal_price, $premium_price)";
+	function addScheduledTrip(String $departureDate, String $departureTime, String $vehicleReg, String $routeId,
+							  String $driverId, String $conductorId, int $normal_price, int $premium_price, String
+							  $driver_name, String $conductor_name)
 
-		if ($this->conn->query($sql)) {
-			return true;
-		} else {
-			return $this->conn->error;
-		};
-		$this->conn->close();
+	{
+		try{
+			$sql = "INSERT INTO journey(departure_date, departure_time, vehicle_reg,route_id, driver_id, conductor_id, normal_price, premium_price, driver_name, conductor_name) VALUES('$departureDate', '$departureTime', '$vehicleReg', $routeId, $driverId, $conductorId, $normal_price, $premium_price, '$driver_name', '$conductor_name')";
+			$this->conn->query($sql);
+			if($this->conn->affected_rows > 0){
+				return true;
+			}else{
+				throw new Exception($this->conn->error);
+			}
+		}catch (Exception $e){
+			var_dump($e->getMessage());
+			return $e->getMessage();
+		}
+
+
+
 	}
 
 
@@ -261,11 +270,11 @@ class DB
 
 	function getAllTrips()
 	{
-		$sql = "SELECT j.journey_id, j.departure_date, j.departure_time, j.vehicle_reg, j.route_id, b.color, b.model,b.coach,b.no_of_seats, j.driver_id,j.conductor_id, r.start_point, r.end_point, r.route_name, r.distance, r.duration FROM journey AS j, bus as b, route as r WHERE j.vehicle_reg = b.registration AND j.route_id = r.route_id";
+		$sql = "SELECT j.journey_id, j.departure_date, j.departure_time, j.vehicle_reg, j.route_id, b.color, b.model,b.coach,b.no_of_seats, j.driver_id,j.conductor_id, r.start_point, r.end_point, r.route_name, r.distance, r.duration,j.driver_name, j.conductor_name FROM journey AS j, bus as b, route as r WHERE j.vehicle_reg = b.registration AND j.route_id = r.route_id";
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$trips[] = new Trip($row['journey_id'], $row['departure_date'], $row['departure_time'], $row['vehicle_reg'], $row['route_id'], $row['driver_id'], $row['conductor_id'], $row['color'], $row['model'], $row['coach'], $row['no_of_seats'], $row['start_point'], $row['end_point'], $row['route_name'], $row['distance'], $row['duration']);
+				$trips[] = new Trip($row['journey_id'], $row['departure_date'], $row['departure_time'], $row['vehicle_reg'], $row['route_id'], $row['driver_id'], $row['conductor_id'], $row['color'], $row['model'], $row['coach'], $row['no_of_seats'], $row['start_point'], $row['end_point'], $row['route_name'], $row['distance'], $row['duration'],$row['driver_name'], $row['conductor_name']);
 			}
 			return $trips;
 		} else {
@@ -452,9 +461,13 @@ class DB
 	 * @param int $conductorId THe if of the conductor
 	 * @param int $normal_price The base price of this journey
 	 * @param int $premium_price The price for the VIP seats of this journey
+	 * @param  String $driverName The name of the driver
+	 * @param  String $conductorName The name of the conductor
+	 * @param  String the end date if recurring
 	 * @return bool status It shall return a string with the exception message if the insert was not successful
 	 */
-	function createRecurringJourney(String $startDate, String $scheduledTime, String $vehicle_reg, int $route_id, int $driver_id, $conductorId, $normal_price, $premium_price, String $endDate)
+	function createRecurringJourney(String $startDate, String $scheduledTime, String $vehicle_reg, int $route_id, int
+	$driver_id, $conductorId, $normal_price, $premium_price, String $endDate, String $driverName, String $conductorName)
 	{
 		try {
 			/// We shall add one day from the start date
@@ -464,7 +477,7 @@ class DB
 			$period = new DatePeriod($begin, $interval, $end);
 			foreach ($period as $dt) {
 				$departureDate = $dt->format('Y-m-d');
-				$sql = "INSERT INTO journey (departure_date, departure_time,vehicle_reg, route_id, driver_id, conductor_id, normal_price, premium_price) VALUES ('{$departureDate}','{$scheduledTime}','{$vehicle_reg}', $route_id, $driver_id, $conductorId, $normal_price,$premium_price) ";
+				$sql = "INSERT INTO journey (departure_date, departure_time,vehicle_reg, route_id, driver_id, conductor_id, normal_price, premium_price, driver_name, conductor_name) VALUES ('{$departureDate}','{$scheduledTime}','{$vehicle_reg}', $route_id, $driver_id, $conductorId, $normal_price,$premium_price, $driverName,$conductorName) ";
 
 				if (!$this->conn->query($sql)) {
 					throw new Exception($this->conn->error);
