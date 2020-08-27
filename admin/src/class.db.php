@@ -354,7 +354,7 @@ class DB
 	function checkIfUserExists(String $email, String $password)
 	{
 		$password = md5($password);
-		$sql = "SELECT * FROM users WHERE email = '$email' and password='{$password}' AND userType = 'customer' ";
+		$sql = "SELECT * FROM users WHERE email = '$email' and password='{$password}' AND userType = 'customer' AND status = 1 ";
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
 		    return true;

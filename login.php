@@ -7,8 +7,10 @@
 		$email = $_POST['txt_email'];
 		$db = new DB();
 		$result = $db->checkIfUserExists($email, $pass);
+		$userDetail = $db->fetchUserDetailByEmail($email);
 		if($result == true) {
 			$_SESSION['username'] = $email;
+			$_SESSION['name'] = $userDetail['name'];
 			// Redirect if a user was found
 			header('Location: homepage.php');
 		}
