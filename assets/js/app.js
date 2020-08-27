@@ -62,7 +62,7 @@ function showAvailableTrips() {
 		var elem = document.querySelector('#availableOptions');
 		elem.style.display = 'block';
 		// e.innerHTML = "You cant do this."
-		document.getElementById("availableOptions").innerHTML = "You cant to there!";
+		document.getElementById("availableOptions").innerHTML = "You cant go there!";
 	} else {
 		// document.getElementById("availableOptions").innerHTML = "";
 		var elem = document.querySelector('#availableOptions');
