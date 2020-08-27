@@ -13,7 +13,7 @@
 <body>
 <?php include('includes/inc.top_nav.php'); ?>
 <div class="grid-container">
-    <div class="grid-x grid-padding-x">
+    <div class="grid-x grid-padding-x grid-padding-y">
         <div class="large-12 cell">
             <h2>Contact Us</h2>
             <p class="">

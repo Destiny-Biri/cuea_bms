@@ -24,7 +24,8 @@ require ('pages/inc.feedback.php');
             <td>Mobile</td>
             <td>UserType</td>
             <td>Status</td>
-            <td>Edit</td>
+            <td>Details</td>
+<!--            <td>Edit</td>-->
         </tr>
 
     </thead>
@@ -45,7 +46,8 @@ require ('pages/inc.feedback.php');
         echo "<td>{$user['mobile']}</td>";
         echo "<td>{$user['userType']}</td>";
         echo "<td>{$status}</td>";
-        echo "<td>Enable | <a data-open='modal_$modalId'>Disabled</a></td>";
+        echo "<td><a href='index.php?action=detail&view=users&id={$user['email']}'>View Details</a></td>";
+//        echo "<td>Enable | <a data-open='modal_$modalId'>Disabled</a></td>";
         echo "</tr>";
     }
     ?>

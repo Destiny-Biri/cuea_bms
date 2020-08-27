@@ -712,6 +712,57 @@ class DB
         }
     }
 
+	public function updateUser($email, $name, $mobile, int $userId)
+	{
+		try{
+			$sql = "UPDATE users SET email = '$email', name = '$name',  mobile = '$mobile' WHERE userId = $userId ";
+//			var_dump($sql);
+//			die();
+			$this->conn->query($sql);
+			if($this->conn->affected_rows>0){
+				return true;
+			}else{
+				throw new Exception($this->conn->error);
+			}
+		}catch (Exception $e){
+			return $e->getMessage();
+		}
+	}
+
+	public function fetchUserDetailByEmail($email)
+	{
+		try{
+			$sql = "SELECT * FROM users WHERE email = '$email' ";
+			 $result = $this->conn->query($sql);
+			if($result->num_rows > 0) {
+				return $result->fetch_assoc();
+			}
+		}catch (Exception $e){
+			return $e->getMessage();
+		}
+
+
+	}
+
+	public function addNewUser($email, $name, $mobile, $password, $userType)
+	{
+
+		try{
+			$hashPassword = md5($password);
+			$sql = "INSERT INTO users(email, password, name, mobile, userType) VALUES  ('$email', '$hashPassword', '$name', '$mobile', $userType) ";
+
+			if($this->conn->query($sql)){
+				return true;
+			}else{
+				throw new Exception($this->conn->error);
+			}
+
+		}catch (Exception $e){
+			return $e->getMessage();
+		}
+
+	}
+
 
 }
 

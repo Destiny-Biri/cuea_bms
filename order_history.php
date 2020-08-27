@@ -26,7 +26,7 @@ $orderHistory = $db->fetchOrdersByEmail($userId);
 <body>
 <?php include('includes/inc.top_nav.php'); ?>
 <div class="grid-container">
-    <div class="grid-x grid-margin-x grid-padding-x">
+    <div class="grid-x grid-padding-x grid-padding-y">
         <div class="large-12 cell">
             <?php
             if(isset($_GET['orderId'])){

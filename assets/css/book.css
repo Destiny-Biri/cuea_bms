@@ -29,16 +29,6 @@ body {
   background-position: center;
 }
 
-ul {
-  float: right;
-  list-style-type: none;
-  margin-top: 32px;
-}
-
-ul li {
-  display: inline-block;
-}
-
 ul li a {
   text-decoration: none;
   color: #fff;
@@ -74,7 +64,7 @@ ul li a:hover {
 
 .logo img {
   float: left;
-  width: 80px;
+  width: 50px;
   height: auto;
 }
 
@@ -232,4 +222,8 @@ ul.bus_select li {
 
 .cell{
   background: #FFF;
+}
+
+.top-bar, .top-bar ul {
+  background-color: #000000;
 }

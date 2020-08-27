@@ -3,7 +3,9 @@
 		if(isset($_SESSION['dontgo'])){
 			$_SESSION['dontgo']=NULL;
 		}
-		if(isset($_SESSION['username'])){}
+		if(isset($_SESSION['username'])){
+		    $name = $_SESSION['name'];
+        }
 			else{
 				header('location: login.php');
 			}
@@ -19,7 +21,7 @@
 		include('includes/inc.top_nav.php');
 	?>
 		<div class="hell">
-		<h1 style="color: white;">Welcome to BMS Transport</h1><br>
+		<p class="lead" style="color: white; font-size: 2.2em">Welcome <?php echo $name ?> to BMS Transport</p><br>
 		<a  href="book.php">Book Ticket</a>
 	</div>
 </body>

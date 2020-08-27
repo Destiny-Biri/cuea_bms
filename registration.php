@@ -17,6 +17,7 @@ if(isset($_POST['btn_register'])){
             if(!(is_string($result))){
                 $_SESSION['username']= $email;
                 $_SESSION['name'] = $name;
+                $_SESSION['userType'] = "client";
                 header('location: homepage.php');
             }else{
                 $_SESSION['error'] =$result;

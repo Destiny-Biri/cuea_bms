@@ -13,7 +13,7 @@
 <body>
 <?php include('includes/inc.top_nav.php'); ?>
 <div class="grid-container">
-    <div class="grid-x grid-padding-x">
+    <div class="grid-x grid-padding-x grid-padding-y">
         <div class="large-12 cell">
             <h2>About</h2>
             <p class="lead">Destiny's buses are very confortable and we're here here to assist our customers and give them a
@@ -23,5 +23,7 @@
         </div>
     </div>
 </div>
+
+
 </body>
 </html>

@@ -260,6 +260,9 @@ if(isset($_GET['action'])){
 											include ('pages/inc.feedback.php');
                                             include('forms/manage_users.php');
                                             break;
+                                        case 'detail':
+                                            include('forms/manage_users.php');
+                                            break;
                                     }
                                 }
                                 break;
