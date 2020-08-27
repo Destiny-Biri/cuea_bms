@@ -749,7 +749,7 @@ class DB
 
 		try{
 			$hashPassword = md5($password);
-			$sql = "INSERT INTO users(email, password, name, mobile, userType) VALUES  ('$email', '$hashPassword', '$name', '$mobile', $userType) ";
+			$sql = "INSERT INTO users(email, password, name, mobile, userType) VALUES  ('$email', '$hashPassword', '$name', '$mobile', '$userType') ";
 
 			if($this->conn->query($sql)){
 				return true;
