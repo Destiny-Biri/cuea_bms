@@ -6,17 +6,17 @@ if(isset($_POST['btn_saveuser'])){
    if(isset($_POST['hid_userId'])){
        $status = (int)$_POST['rad_status'];
 	   $userId = (int)$_POST['hid_userId'];
-	   $email = $_POST['txt_email'];
+	   $email = trim($_POST['txt_email']);
 	   $mobile = $_POST['txt_mobile'];
 	   $name = $_POST['txt_name'];
 	   //Add the user
 	   $result = $db->updateUser($email, $name, $mobile,$userId, $status);
 	   manageErrors($result,"The user was updated successfully","users");
    }else{
-       $email = $_POST['txt_email'];
+       $email = trim($_POST['txt_email']);
 	   $mobile = $_POST['txt_mobile'];
 	   $name = $_POST['txt_name'];
-	   $password = $_POST['txt_password'];
+	   $password = trim($_POST['txt_password']);
 	   $userType = "customer";
 	   //Add the user
 	   $result = $db->addNewUser($email, $name, $mobile, $password,$userType);
