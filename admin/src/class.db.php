@@ -712,10 +712,10 @@ class DB
         }
     }
 
-	public function updateUser($email, $name, $mobile, int $userId)
+	public function updateUser($email, $name, $mobile, int $userId, int $status)
 	{
 		try{
-			$sql = "UPDATE users SET email = '$email', name = '$name',  mobile = '$mobile' WHERE userId = $userId ";
+			$sql = "UPDATE users SET email = '$email', name = '$name',  mobile = '$mobile', status = $status WHERE userId = $userId ";
 //			var_dump($sql);
 //			die();
 			$this->conn->query($sql);

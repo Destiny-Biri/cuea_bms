@@ -35,10 +35,10 @@ require ('pages/inc.feedback.php');
 		$modalId = 1;
 		$url = "index.php?action=delete&view=users&userId={$user['userId']}";
 		displayDeleteModal($modalId, $url);
-        if($user['userType'] == 0) {
-            $status = "Enabled";
-        }else{
+        if($user['status'] == 0) {
             $status = "Disabled";
+        }else{
+            $status = "Enabled";
         }
         echo "<tr>";
         echo "<td>{$user['email']}</td>";
