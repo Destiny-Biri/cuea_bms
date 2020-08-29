@@ -90,18 +90,28 @@ if(isset($_POST['btn_submitTxn'])){
             </table>
         </div>
         <div class="large-4 cell">
-            <h5>Payment Instructions</h5>
-            <ul type="number">
-                <li>Go To MPesa</li>
-                <li>Select Paybill</li>
-                <li>112366</li>
+            <div>
+                <h5>Payment Instructions</h5>
+                <ol>
+                    <li>Go To MPesa</li>
+                    <li>Select Paybill</li>
+                    <li>112366</li>
 
-            </ul>
-            <p>Enter the transaction code below</p>
-            <form action="" method="post">
-                <input type="text" name="txt_txnCode" id="txt_txtCode" required>
-                <input type="submit" value="SUBMIT" name="btn_submitTxn" class="button expanded">
-            </form>
+                </ol>
+            </div>
+
+            <div>
+                <p>Enter the transaction code below</p>
+                <form action="" method="post">
+                    <label for="txt_txtCode">
+                        <input type="text" name="txt_txnCode" id="txt_txtCode" required>
+                    </label>
+
+                    <input type="submit" value="SUBMIT" name="btn_submitTxn" class="button expanded">
+                </form>
+            </div>
+
+
         </div>
     </div>
 
