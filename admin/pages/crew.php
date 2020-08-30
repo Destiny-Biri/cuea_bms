@@ -21,6 +21,7 @@ require ('pages/inc.feedback.php');
     <tr>
         <td>Crew Name</td>
         <td>Crew Type</td>
+        <td>Staff ID</td>
         <td>Action</td>
     </tr>
 
@@ -34,6 +35,7 @@ require ('pages/inc.feedback.php');
         echo "<tr>";
         echo "<td>{$crew->crew_name}</td>";
         echo "<td>{$crew->crew_type}</td>";
+		echo "<td>{$crew->staff_id}</td>";
         echo "<td><a data-open='modal_$modalId'>Delete</a></td>";
         echo "</tr>";
     }

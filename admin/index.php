@@ -5,7 +5,8 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['admin']) ){
 	header('Location:login.php');
 }
 require_once 'src/class.db.php';
-require_once  'src/functions.php';
+require_once 'src/functions.php';
+require_once 'src/salesByBus.php';
 if(isset($_GET['action'])){
   $action = $_GET['action'];
   if($action == 'delete'){
@@ -120,6 +121,8 @@ if(isset($_GET['action'])){
 							<li><a href="index.php"><i class="fas fa-home"></i> DASHBOARD</a></li>
 							<li><a href="index.php?action=view&view=bookings"><i class="fas fa-book"></i> BOOKINGS</a></li>
 							<li><a href="index.php?action=view&view=payments"><i class="fas fa-cash-register"></i> PAYMENTS</a></li>
+                            <li><a href="index.php?action=view&view=reports"><i class="fas fa-cash-register"></i>
+                                    REPORTS</a></li>
 						</ul>
 					</div><!--End of top bar left-->
 					<div class="top-bar-right">
@@ -151,6 +154,9 @@ if(isset($_GET['action'])){
 					if(isset($_GET['view'])){
 						$view = $_GET['view'];
 						switch($view){
+                            case 'reports':
+                                include ('pages/reports.php');
+                                break;
                             case 'bookings':
                                 if(isset($_GET['action'])){
 									$action = $_GET['action'];

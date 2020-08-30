@@ -324,7 +324,7 @@ class DB
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$crew[] = new Crew($row['crew_id'], $row['crew_type'], $row['crew_name']);
+				$crew[] = new Crew($row['crew_id'], $row['crew_type'], $row['crew_name'], "");
 			}
 			return $crew;
 		} else {
@@ -341,7 +341,7 @@ class DB
 	    $result = $this->conn->query($sql);
 	    if($result->num_rows > 0) {
            while($row = $result->fetch_assoc()) {
-               $crew[] = new Crew($row['crew_id'],$row['crew_type'],$row['crew_name']);
+               $crew[] = new Crew($row['crew_id'],$row['crew_type'],$row['crew_name'], '');
            }
             return $crew;
         }else {
