@@ -124,7 +124,7 @@ class DB
 			}
 			return true;
 		} else {
-			return $this->conn->error;
+			return $this->conn->error_list;
 		};
 
 	}
@@ -217,9 +217,9 @@ class DB
 		if ($this->conn->query($query)) {
 			return true;
 		} else {
-			return $this->conn->error;
-		};
-		$this->conn->close();
+			return $this->conn->error_list;
+		}
+
 	}
 
 	/**
@@ -242,8 +242,7 @@ class DB
 				throw new Exception($this->conn->error);
 			}
 		}catch (Exception $e){
-			var_dump($e->getMessage());
-			return $e->getMessage();
+			return $this->conn->error_list;
 		}
 
 
@@ -758,6 +757,40 @@ class DB
 			}
 
 		}catch (Exception $e){
+			return $e->getMessage();
+		}
+
+	}
+
+	/**
+	 * Check if a registration number is unique
+	 * @param string $registration
+	 * @return bool|int|mixed|mysqli_result
+	 */
+	public function checkIfUniqueRegistration(string $registration)
+	{
+		try{
+			$sql = "SELECT COUNT(bus.registration) FROM bus WHERE  bus.registration = '$registration'";
+			$result = $this->conn->query($sql);
+			$row = $result->fetch_assoc();
+			return (int)$row['COUNT(bus.registration)'];
+		}catch (Exception $e){
+			return $e->getCode();
+		}
+	}
+
+	public function checkIfRouteExists(string $start, string $stop)
+	{
+		try{
+			$sql = "SELECT COUNT(route_id) AS result FROM route WHERE start_point = '$start' AND end_point = '$stop' ";
+			if($result = $this->conn->query($sql)){
+				$row = $result->fetch_assoc();
+				return (int)$row['result'];
+			}else{
+				throw new Exception($this->conn->error);
+			}
+		}
+		catch (Exception $e){
 			return $e->getMessage();
 		}
 

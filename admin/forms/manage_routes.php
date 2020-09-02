@@ -60,11 +60,34 @@ if(isset($_POST['btn_manage_route'])){
 
 
     ?>
+
+    <div id="validRoute">
+
+    </div>
 	<label for="txt_start_point">Start</label>
 		<input type="text" name="txt_start_point" id="txt_start_point" value="<?php echo $start_point?>" required>
 
 	<label for="txt_end_point">Destination</label>
-		<input type="text" name="txt_end_point" id="txt_end_point" value="<?php echo $end_point ?>" required>
+		<input type="text" name="txt_end_point" id="txt_end_point" onchange="checkIfRouteExists()" value="<?php echo $end_point ?>" required>
 	
 	<input type="submit" class="button" name="btn_manage_route">
 </form>
+
+<script>
+
+        function checkIfRouteExists(){
+            // Get the value input
+            var startPoint = document.getElementById("txt_start_point").value;
+            var stopPoint = document.getElementById("txt_end_point").value;
+            // divValidRoute.style.display = "block";
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    document.getElementById("validRoute").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "validate.php?validate=route&start=" + startPoint+"&stop="+stopPoint, true);
+            xmlhttp.send();
+        }
+
+</script>
