@@ -20,24 +20,27 @@ $crew_type ="";
 
 ?>
 
+<div class="grid-x">
+    <div class="cell large-6">
+        <h3>Manage Drivers and Conductors</h3>
+        <form action="" method="POST">
+            <label for="txt_crew_name">Driver Name
+                <input type="text" name="txt_crew_name" value="<?php echo $crew_name?>" required>
+            </label>
 
-<h3>Manage Drivers and Conductors</h3>
-<form action="" method="POST">
-    <label for="txt_crew_name">Driver Name
-        <input type="text" name="txt_crew_name" value="<?php echo $crew_name?>" required>
-    </label>
+            <label for="txt_staffId">Staff Id
+                <input type="text" name="txt_staff_id" value="<?php echo $staff_id?>" required>
+            </label>
 
-    <label for="txt_staffId">
-        <input type="text" name="txt_staff_id" value="<?php echo $staff_id?>" required>
-    </label>
+            <label for="sel_crewType">Role
+                <select name="sel_crewType">
+                    <option value="Driver" <?php if($crew_type == 'Driver') {echo "selected 'selected' ";}?>>Driver</option>
+                    <option value="Conductor" <?php if($crew_type == 'Conductor') {echo "selected 'selected' ";
+					}?>>Conductor</option>
+                </select>
+            </label>
 
-    <label for="sel_crewType">Role
-        <select name="sel_crewType">
-            <option value="Driver" <?php if($crew_type == 'Driver') {echo "selected 'selected' ";}?>>Driver</option>
-            <option value="Conductor" <?php if($crew_type == 'Conductor') {echo "selected 'selected' ";
-            }?>>Conductor</option>
-        </select>
-    </label>
-
-    <input type="submit" name="btn_manageCrew" class="button" value="SAVE">
-</form>
+            <input type="submit" name="btn_manageCrew" class="button" value="SAVE">
+        </form>
+    </div>
+</div>

@@ -8,7 +8,16 @@
 		if(is_string($result)) {
 			header("Location:index.php?action=view&view=$redirectView&status=0&response=$result");
 		}else{
-			header("Location:index.php?action=view&view=$redirectView&status=1&response=$successString.");
+			if(is_array($result)){
+				if($result[0]['errno']==1062){
+					$successString = "Action failed! A similar record exists in the database.";
+					header("Location:index.php?action=view&view=$redirectView&status=1&response=$successString.");
+				}
+
+			}else{
+				header("Location:index.php?action=view&view=$redirectView&status=1&response=$successString.");
+			}
+
 		}
 	}
 

@@ -6,7 +6,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['admin']) ){
 }
 require_once 'src/class.db.php';
 require_once 'src/functions.php';
-require_once 'src/salesByBus.php';
+
 if(isset($_GET['action'])){
   $action = $_GET['action'];
   if($action == 'delete'){

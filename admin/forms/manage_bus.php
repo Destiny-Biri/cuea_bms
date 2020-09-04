@@ -41,8 +41,12 @@
 					echo "<input type=\"hidden\" name=\"hid_registration\" value=\"$registration\">";
 				} ?>
 
-				<label for="txt_registration">Registration</label>
-					<input type="text" name="txt_registration" label="Enter Registration" id="txt_registration" value="<?php if(isset($registration)) {echo $registration;} ?>" required>
+				<label for="txt_registration">Registration
+					<input type="text" name="txt_registration" onchange="checkIfBusValid()" label="Enter Registration"
+                           id="txt_registration"
+                           value="<?php if(isset($registration)) {echo $registration;} ?>" required>
+                    <div id="validRegistration" class="error"></div>
+                </label>
 
 
 				<div class="grid-x grid-padding-x">
@@ -93,11 +97,29 @@
 				<input type="submit" name="btn_manage_bus" val="SAVE" class="button">			
 			</form>
 <script type="application/javascript">
+    //Hide the
+    var divValidRegistration = document.getElementById("validRegistration");
+    divValidRegistration.style.display = "none";
+
     function add() {
         var vipSeats = document.getElementById("txt_seats_vip").value;
         var normalSeats = document.getElementById("txt_seats_normal").value;
         var totalSeats =parseInt(vipSeats) + parseInt(normalSeats); //addition of two values
         document.getElementById("txt_no_of_seats").value = totalSeats;
+    }
+
+    function checkIfBusValid(){
+        // Get the value input
+      var x = document.getElementById("txt_registration").value;
+        divValidRegistration.style.display = "block";
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("validRegistration").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "validate.php?validate=registration&registrationNo=" + x, true);
+        xmlhttp.send();
     }
 
 </script>
