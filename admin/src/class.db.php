@@ -715,16 +715,16 @@ class DB
 	{
 		try{
 			$sql = "UPDATE users SET email = '$email', name = '$name',  mobile = '$mobile', status = $status WHERE userId = $userId ";
-//			var_dump($sql);
-//			die();
+
 			$this->conn->query($sql);
 			if($this->conn->affected_rows>0){
 				return true;
 			}else{
-				throw new Exception($this->conn->error_list);
+			    return $this->conn->error_list;
+
 			}
 		}catch (Exception $e){
-			return $e->getMessage();
+			return $this->conn->error_list;
 		}
 	}
 
@@ -753,7 +753,7 @@ class DB
 			if($this->conn->query($sql)){
 				return true;
 			}else{
-				throw new Exception($this->conn->error);
+			    return  $this->conn->error_list;
 			}
 
 		}catch (Exception $e){
