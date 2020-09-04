@@ -721,7 +721,7 @@ class DB
 			if($this->conn->affected_rows>0){
 				return true;
 			}else{
-				throw new Exception($this->conn->error);
+				throw new Exception($this->conn->error_list);
 			}
 		}catch (Exception $e){
 			return $e->getMessage();
