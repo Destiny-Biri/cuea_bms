@@ -23,11 +23,8 @@ class SalesByBus extends \koolreport\KoolReport{
 	public function setup()
 	{
 		$this->src('sales')
-			->query("SELECT r.route_name, b.amount AS amount FROM booking as b, journey as j, route as r WHERE r.route_id = j.route_id")
-			->pipe(new Group(array(
-				"by"=>"route_name",
-				"sum"=>"amount"
-			)))
+			->query("SELECT r.route_name, SUM(b.amount) AS amount FROM booking as b, journey as j, route as r WHERE r.route_id = j.route_id GROUP BY(r.route_name)")
+
 			->pipe(new Sort(array(
 				"amount"=>"desc"
 			)))
