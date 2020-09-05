@@ -30,7 +30,7 @@ if(count($result)>0){
 		echo "<div class=\"large-4 cell busPreview\">";
 			echo "<div class=\"\">";
 				echo "<h3>{$res['departure_time']}</h3>";
-				echo "<img class='thumbnail' src='image/buses/{$res['imgurl']}'>";
+				echo "<img class='thumbnail' src='admin/{$res['imgurl']}'>";
 				echo "<ul class='no-bullet bus_select'>";
 					echo "<li>Bus Model : {$res['model']}</li>";
 					echo "<li>Coach Type : {$res['coach']}</li>";

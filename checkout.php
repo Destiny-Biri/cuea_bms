@@ -20,8 +20,31 @@ if(isset($_POST['btn_submitTxn'])){
   //Update the transaction
     $transactionCode = $_POST['txt_txnCode'];
     $amount = $order->amount;
-    $result = $db->validateTransaction($transactionCode,
-        $bookingId,$amount);
+    $receipt = $db->getReceipt($transactionCode);
+    if(is_array($receipt)){
+       //@TODO : An error occurred
+        var_dump($receipt);
+    }if($receipt instanceof Receipt){
+        //Check if it is valid
+        if($receipt->is_valid==0){
+            //This transaction has already been used before
+			//@TODO : An error occurred
+			$result = $db->validateTransaction($transactionCode,
+				$bookingId,$amount);
+        }else{
+            if((double)$receipt->amount == (double)$amount){
+				$result = $db->validateTransaction($transactionCode,
+					$bookingId,$receipt->amount, 'Complete');
+            }
+			$result = $db->validateTransaction($transactionCode,
+				$bookingId,$receipt->amount, 'AwaitingBookingConfirmation');
+        }
+    }if(is_int($receipt)){
+        //@TODO: Tell the user that the transaction
+		$result = $db->validateTransaction($transactionCode,
+			$bookingId,$amount);
+    }
+
 
     header('Location:order_history.php');
 }
@@ -45,8 +68,12 @@ if(isset($_POST['btn_submitTxn'])){
 <div class="grid-container">
     <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
         <div class="large-8 cell">
-            <h4>Checkout</h4>
             <h5>INVOICE</h5>
+            <ul class="no-bullet">
+                <li>Invoice Ref : <?php echo $order->booking_id?></li>
+                <li>Date : <?php echo $order->booking_time?></li>
+                <li>Route : <?php echo $order->route_name?></li>
+            </ul>
             <table>
                 <thead>
                 <tr>
@@ -74,13 +101,19 @@ if(isset($_POST['btn_submitTxn'])){
                 echo "<table>";
                 echo "<thead>";
                 echo "<tr>";
-                echo "<td>PAYMENT DETAILS</td>";
+				echo "<td>Terms &amp Conditions</td>";
                 echo "<td></td>";
                 echo "</tr>";
                 echo "<tbody>";
                 echo "<tr>";
-                echo "<td>Amount</td>";
-                echo "<td></td>";
+                echo "<td><ol>
+                    <li>The management reserves the right to cancel a journey</li>
+                    <li>Your booking will only be valid once payment has been confirmed.</li>
+                    <li>You are required to be at the pickup station 30mins before departure.</li>
+                    <li>Use of alcohol and drugs is not permitted on the bus. Drunk passengers shall not be permitted
+                        on the bus. </li>
+
+                </ol></td>";
                 echo "</tr>";
                 echo "</tbody>";
                 echo "</thead>";
@@ -88,15 +121,19 @@ if(isset($_POST['btn_submitTxn'])){
                 ?>
                 </tbody>
             </table>
+
+
         </div>
         <div class="large-4 cell">
             <div>
                 <h5>Payment Instructions</h5>
+                <p class="lead">By paying you accept our Terms and Conditions</p>
                 <ol>
                     <li>Go To MPesa</li>
                     <li>Select Paybill</li>
                     <li>112366</li>
-
+                    <li>Pay Kshs <strong><?php echo $order->amount?></strong></li>
+                    <li>Enter the transaction code</li>
                 </ol>
             </div>
 

@@ -7,11 +7,14 @@ if(isset($_POST['btn_login'])) {
 	$password = stripslashes($_REQUEST['txt_password']);
 	//Check if user exists
     $result = $db->checkIfAdminExists($username, $password);
+    var_dump($result);
 	if($result == true) {
 	    $_SESSION['admin'] = true;
 		$_SESSION['username'] = $username;
 		header("Location: index.php");	
-	}
+	}else{
+	    $_SESSION['error'] = $result;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -22,7 +25,12 @@ if(isset($_POST['btn_login'])) {
 </head>
 <body>
 <div class="loginbox">
-	<h1>Admin Login</h1><br><br>
+	<h1>Admin Login</h1>
+    <?php
+    if(isset($_SESSION['error'])){
+        echo "<p>{$_SESSION['error']}</p>";
+    }
+    ?>
 	<form method="POST">	
 		Username:<br><input type="text" name="txt_username"  placeholder="Enter Username" required ><br>
 		Password:<br><input type="Password" name="txt_password" placeholder="Enter Password"  required>

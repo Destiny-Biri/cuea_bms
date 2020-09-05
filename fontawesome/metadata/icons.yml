@@ -7216,7 +7216,7 @@ file-invoice:
       - charge
       - document
       - payment
-      - receipt
+      - class.receipt
   styles:
     - solid
   unicode: f570
@@ -7236,7 +7236,7 @@ file-invoice-dollar:
       - dollar-sign
       - money
       - payment
-      - receipt
+      - class.receipt
       - usd
   styles:
     - solid

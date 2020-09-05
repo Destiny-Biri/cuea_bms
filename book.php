@@ -124,7 +124,7 @@ if((isset($_POST['btn_checkout']))&&(isset($_POST['hid_journeyId']))){
 	<script src="assets/js/vendor/jquery.js"></script>
   <script src="assets/js/vendor/what-input.js"></script>
 	<script src="assets/js/vendor/foundation.js"></script>
-	<script src="assets/js/vendor/foundation.equalizer.min.js"></script>
+<!--	<script src="assets/js/vendor/foundation.equalizer.min.js"></script>-->
 	<script src="assets/js/app.js"></script>
 	
 </body>

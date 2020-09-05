@@ -904,7 +904,7 @@ finance:
     - money-check-alt
     - percentage
     - piggy-bank
-    - receipt
+    - class.receipt
     - stamp
     - wallet
   label: Finance
@@ -1931,7 +1931,7 @@ payments-shopping:
     - money-check
     - money-check-alt
     - paypal
-    - receipt
+    - class.receipt
     - shopping-bag
     - shopping-basket
     - shopping-cart
@@ -1966,7 +1966,7 @@ pharmacy:
     - prescription
     - prescription-bottle
     - prescription-bottle-alt
-    - receipt
+    - class.receipt
     - skull-crossbones
     - syringe
     - tablets
@@ -2133,7 +2133,7 @@ shopping:
     - gift
     - gifts
     - person-booth
-    - receipt
+    - class.receipt
     - shipping-fast
     - shopping-bag
     - shopping-basket
