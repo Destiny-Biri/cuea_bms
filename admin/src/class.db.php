@@ -5,6 +5,7 @@ require('class.crew.php');
 require('class.trip.php');
 require('class.order.php');
 require('class.orderDetail.php');
+require('class.receipt.php');
 ?>
 <?php
 
@@ -35,12 +36,17 @@ class DB
 	 *  */
 	function fetchOrderByBookingId(String $bookingId): Order
 	{
-		$sql = "SELECT o.booking_id,o.journey_id,o.booking_time,o.email, o.amount, r.route_name, o.order_status FROM booking as o, journey as j, route as r WHERE o.booking_id = $bookingId AND j.journey_id = o.journey_id AND j.route_id = r.route_id";
+		$sql = "SELECT o.booking_id,o.journey_id,o.booking_time,o.email, o.amount, r.route_name, o.order_status, j.departure_date, j.departure_time, j.vehicle_reg,j.route_id, j.driver_id, j.conductor_id, b.color,b.model,b.coach,b.no_of_seats,r.start_point, r.end_point, r.distance,r.duration, j.driver_name,j.conductor_name,b.imgurl,b.normal_seats,b.vip_seats FROM booking as o, journey as j, route as r, bus as b WHERE o.booking_id = '$bookingId' AND j.journey_id = o.journey_id AND j.route_id = r.route_id  AND j.vehicle_reg = b.registration AND j.route_id = r.route_id";
 
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$order = new Order($row['booking_id'], $row['journey_id'], $row['booking_time'], $row['email'], $row['amount'], $row['route_name'], $row['order_status']);
+				$order = new Order($row['booking_id'], $row['journey_id'], $row['booking_time'], $row['email'],
+					$row['amount'], $row['route_name'], $row['order_status'],$row['departure_date'],
+					$row['departure_time'],$row['vehicle_reg'],$row['route_id'],$row['driver_id'],$row['conductor_id'],
+					$row['color'],$row['model'],$row['coach'],$row['no_of_seats'],$row['start_point'],$row['end_point'],
+					$row['distance'],$row['duration'],$row['driver_name'],$row['conductor_name'],$row['imgurl'],$row['normal_seats'],$row['vip_seats']
+				);
 			}
 			return $order;
 		} else {
@@ -71,12 +77,16 @@ class DB
 
 	function fetchOrdersByEmail(String $email): array
 	{
-		$sql = "SELECT o.booking_id,o.journey_id,o.booking_time,o.email, o.amount, r.route_name, o.order_status FROM booking as o, journey as j, route as r WHERE email = '$email' AND j.journey_id = o.journey_id AND j.route_id = r.route_id ORDER BY o.booking_time DESC";
+		$sql = "SELECT o.booking_id,o.journey_id,o.booking_time,o.email, o.amount, r.route_name, o.order_status, j.departure_date, j.departure_time, j.vehicle_reg,j.route_id, j.driver_id, j.conductor_id, b.color,b.model,b.coach,b.no_of_seats,r.start_point, r.end_point, r.distance,r.duration, j.driver_name,j.conductor_name,b.imgurl,b.normal_seats,b.vip_seats FROM booking as o, journey as j, route as r, bus as b WHERE email = '$email' AND j.journey_id = o.journey_id AND j.route_id = r.route_id  AND j.vehicle_reg = b.registration ORDER BY o.booking_time DESC";
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$orders[] = new Order($row['booking_id'], $row['journey_id'], $row['booking_time'], $row['email'],
-					$row['amount'], $row['route_name'], $row['order_status']);
+					$row['amount'], $row['route_name'], $row['order_status'],$row['departure_date'],
+					$row['departure_time'],$row['vehicle_reg'],$row['route_id'],$row['driver_id'],$row['conductor_id'],
+					$row['color'],$row['model'],$row['coach'],$row['no_of_seats'],$row['start_point'],$row['end_point'],
+					$row['distance'],$row['duration'],$row['driver_name'],$row['conductor_name'],$row['imgurl'],$row['normal_seats'],$row['vip_seats']
+				);
 			}
 			return $orders;
 		} else {
@@ -88,11 +98,16 @@ class DB
 ///Fetch all the orders that have been placed
 	function fetchAllOrders()
 	{
-		$sql = "SELECT o.booking_id,o.journey_id,o.booking_time,o.email, o.amount, r.route_name, o.order_status FROM booking as o, journey as j, route as r WHERE j.journey_id = o.journey_id AND j.route_id = r.route_id ";
+		$sql = "SELECT o.booking_id,o.journey_id,o.booking_time,o.email, o.amount, r.route_name, o.order_status, j.departure_date, j.departure_time, j.vehicle_reg,j.route_id, j.driver_id, j.conductor_id, b.color,b.model,b.coach,b.no_of_seats,r.start_point, r.end_point, r.distance,r.duration, j.driver_name,j.conductor_name,b.imgurl,b.normal_seats,b.vip_seats FROM booking as o, journey as j, route as r, bus as b WHERE j.journey_id = o.journey_id AND j.route_id = r.route_id  AND j.vehicle_reg = b.registration AND j.route_id = r.route_id";
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$orders[] = new Order($row['booking_id'], $row['journey_id'], $row['booking_time'], $row['email'], $row['amount'], $row['route_name'], $row['order_status']);
+				$orders[]  = new Order($row['booking_id'], $row['journey_id'], $row['booking_time'], $row['email'],
+					$row['amount'], $row['route_name'], $row['order_status'],$row['departure_date'],
+					$row['departure_time'],$row['vehicle_reg'],$row['route_id'],$row['driver_id'],$row['conductor_id'],
+					$row['color'],$row['model'],$row['coach'],$row['no_of_seats'],$row['start_point'],$row['end_point'],
+					$row['distance'],$row['duration'],$row['driver_name'],$row['conductor_name'],$row['imgurl'],$row['normal_seats'],$row['vip_seats']
+				);
 			}
 			return $orders;
 		} else {
@@ -105,10 +120,21 @@ class DB
 	 *
 	 * **/
 
-// Add a bus
-	Function addBus(String $registration, String $color, String $model, String $couch, int $noOfSeats, $normal_seats, $vip_seats)
+	/**
+	 * @param String $registration
+	 * @param String $color
+	 * @param String $model
+	 * @param String $couch
+	 * @param int $noOfSeats
+	 * @param $normal_seats
+	 * @param $vip_seats
+	 * @param String $imgUrl
+	 * @return array|bool
+	 */
+	Function addBus(String $registration, String $color, String $model, String $couch, int $noOfSeats, $normal_seats,
+					$vip_seats, String $imgUrl)
 	{
-		$query = "INSERT INTO bus(registration,color, model,coach, no_of_seats, normal_seats,vip_seats) VALUES('$registration','$color','$model','$couch', $noOfSeats, $normal_seats, $vip_seats)";
+		$query = "REPLACE INTO bus(registration,color, model,coach, no_of_seats, normal_seats,vip_seats, imgurl) VALUES('$registration','$color','$model','$couch', $noOfSeats, $normal_seats, $vip_seats, '$imgUrl')";
 		if ($this->conn->query($query)) {
 			//add the bus seats
 			//Add the seats for staff
@@ -125,7 +151,7 @@ class DB
 			return true;
 		} else {
 			return $this->conn->error_list;
-		};
+		}
 
 	}
 
@@ -135,7 +161,7 @@ class DB
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$buses[] = new Bus($row['registration'], $row['color'], $row['model'], $row['coach'], $row['no_of_seats']);
+				$buses[] = new Bus($row['registration'], $row['color'], $row['model'], $row['coach'], $row['no_of_seats'],$row['imgurl'],$row['normal_seats'],$row['vip_seats']);
 			}
 			return $buses;
 		} else {
@@ -144,9 +170,21 @@ class DB
 
 	}
 
+	/**
+	 * @param String $registration
+	 * @return array|Bus
+	 */
 	function getBusDetail(String $registration)
 	{
-		$sql = "SELECT * FROM bus WHERE registration = $registration";
+		$sql = "SELECT * FROM bus WHERE registration = '$registration'";
+		if($result = $this->conn->query($sql)){
+			$row = $result->fetch_assoc();
+			$bus = new Bus($row['registration'],$row['color'],$row['model'],$row['coach'],$row['no_of_seats'],$row['imgurl'],$row['normal_seats'],$row['vip_seats'] );
+			return $bus;
+		}else{
+			return $this->conn->error_list;
+		}
+
 	}
 
 
@@ -269,11 +307,11 @@ class DB
 
 	function getAllTrips()
 	{
-		$sql = "SELECT j.journey_id, j.departure_date, j.departure_time, j.vehicle_reg, j.route_id, b.color, b.model,b.coach,b.no_of_seats, j.driver_id,j.conductor_id, r.start_point, r.end_point, r.route_name, r.distance, r.duration,j.driver_name, j.conductor_name FROM journey AS j, bus as b, route as r WHERE j.vehicle_reg = b.registration AND j.route_id = r.route_id";
+		$sql = "SELECT j.journey_id, j.departure_date, j.departure_time, j.vehicle_reg, j.route_id, b.color, b.model,b.coach,b.no_of_seats, j.driver_id,j.conductor_id, r.start_point, r.end_point, r.route_name, r.distance, r.duration,j.driver_name, j.conductor_name, b.imgurl, b.normal_seats, b.vip_seats FROM journey AS j, bus as b, route as r WHERE j.vehicle_reg = b.registration AND j.route_id = r.route_id";
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$trips[] = new Trip($row['journey_id'], $row['departure_date'], $row['departure_time'], $row['vehicle_reg'], $row['route_id'], $row['driver_id'], $row['conductor_id'], $row['color'], $row['model'], $row['coach'], $row['no_of_seats'], $row['start_point'], $row['end_point'], $row['route_name'], $row['distance'], $row['duration'],$row['driver_name'], $row['conductor_name']);
+				$trips[] = new Trip($row['journey_id'], $row['departure_date'], $row['departure_time'], $row['vehicle_reg'], $row['route_id'], $row['driver_id'], $row['conductor_id'], $row['color'], $row['model'], $row['coach'], $row['no_of_seats'], $row['start_point'], $row['end_point'], $row['route_name'], $row['distance'], $row['duration'],$row['driver_name'], $row['conductor_name'],$row['imgurl'],$row['normal_seats'],$row['vip_seats']);
 			}
 			return $trips;
 		} else {
@@ -409,6 +447,7 @@ class DB
 			while ($row = $result->fetch_assoc()) {
 				$scheduledTrips[] = $row;
 			}
+
 			return $scheduledTrips;
 		} else {
 			return [];
@@ -574,18 +613,36 @@ class DB
 		}
 	}
 
-	public function validateTransaction($transactionCode, $bookingId, $amount)
+	public function getReceipt(String $transactionCode) {
+		$sql = "SELECT * FROM receivables WHERE txtcode = '$transactionCode'";
+		if($result = $this->conn->query($sql)){
+			if($result->num_rows>0){
+				$row = $result->fetch_assoc();
+				return $receipt = new Receipt($row['receiptId'],$row['txtcode'],(double)$row['amount'],(int)$row['is_valid']);
+			}else{
+				return 0;
+			}
+
+
+		}else{
+			return $this->conn->error_list;
+		}
+
+
+	}
+
+	public function validateTransaction($transactionCode, $bookingId, $amount, String $orderStatus = 'AwaitingBookingConfirmation')
 	{
 		$transactionDate = Date("Y-m-d H:i:s");
 		try {
 			//Start a transaction
 			$this->conn->begin_transaction();
-			$sql = "UPDATE booking SET order_status = 'AwaitingBookingConfirmation' WHERE booking_id = $bookingId";
+			$sql = "UPDATE booking SET order_status = '$orderStatus' WHERE booking_id = $bookingId";
 			$sql2 = "INSERT INTO payment (transaction_code, amount, booking_id, transaction_date) VALUES ('$transactionCode', $amount,$bookingId, '$transactionDate')";
 			$this->conn->query($sql);
 			$this->conn->query($sql2);
 			$this->conn->commit();
-    		$this->conn->close();
+
 		} catch (Exception $e) {
 			return $e->getMessage();
 		}
@@ -614,10 +671,9 @@ class DB
         $sql = "SELECT * FROM users WHERE email = '$username' and password='{$password}' AND userType = 'admin'";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0) {
-
-            return true;
+        	return true;
         } else {
-            return false;
+            return $this->conn->error;
         }
     }
 
