@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 04/09/2020 16:39:23
+ Date: 06/09/2020 01:28:40
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `booking`  (
   PRIMARY KEY (`booking_id`) USING BTREE,
   INDEX `userId`(`email`) USING BTREE,
   CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for booking_detail
@@ -51,7 +51,7 @@ CREATE TABLE `booking_detail`  (
   CONSTRAINT `booking_detail_ibfk_1` FOREIGN KEY (`seat_id`) REFERENCES `bus_seat` (`seat_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `booking_detail_ibfk_2` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `booking_detail_ibfk_3` FOREIGN KEY (`journeyId`) REFERENCES `journey` (`journey_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'The details of a booking' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'The details of a booking' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for bus
@@ -63,7 +63,7 @@ CREATE TABLE `bus`  (
   `coach` enum('AC','NON-AC') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `color` enum('Red','Green','Blue','Orange','Black') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `no_of_seats` int(255) NULL DEFAULT 25,
-  `imgurl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'default.png',
+  `imgurl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'images/uploads/buses/default.png',
   `normal_seats` int(255) UNSIGNED NULL DEFAULT 0,
   `vip_seats` int(255) UNSIGNED NULL DEFAULT 0,
   PRIMARY KEY (`registration`) USING BTREE,
@@ -83,7 +83,7 @@ CREATE TABLE `bus_seat`  (
   PRIMARY KEY (`seat_id`) USING BTREE,
   INDEX `busId`(`busId`) USING BTREE,
   CONSTRAINT `bus_seat_ibfk_1` FOREIGN KEY (`busId`) REFERENCES `bus` (`registration`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 361 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 770 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for crew
@@ -127,7 +127,7 @@ CREATE TABLE `journey`  (
   CONSTRAINT `FK_vehicleReg` FOREIGN KEY (`vehicle_reg`) REFERENCES `bus` (`registration`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `journey_ibfk_1` FOREIGN KEY (`driver_id`) REFERENCES `crew` (`crew_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `journey_ibfk_2` FOREIGN KEY (`conductor_id`) REFERENCES `crew` (`crew_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for payment
@@ -142,7 +142,19 @@ CREATE TABLE `payment`  (
   PRIMARY KEY (`transaction_id`) USING BTREE,
   INDEX `booking_id`(`booking_id`) USING BTREE,
   CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for receivables
+-- ----------------------------
+DROP TABLE IF EXISTS `receivables`;
+CREATE TABLE `receivables`  (
+  `receiptId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `txtcode` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `amount` double(10, 2) NULL DEFAULT NULL,
+  `is_valid` tinyint(3) UNSIGNED NULL DEFAULT 1,
+  PRIMARY KEY (`receiptId`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for route
@@ -157,7 +169,7 @@ CREATE TABLE `route`  (
   `duration` int(10) UNSIGNED NULL DEFAULT 360,
   PRIMARY KEY (`route_id`) USING BTREE,
   UNIQUE INDEX `route_name`(`route_name`, `start_point`, `end_point`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for users
