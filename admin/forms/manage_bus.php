@@ -116,6 +116,12 @@ $model = "";
 							?>>Orange</option>
 							<option value="Green" <?php if($color == 'Green') {echo  "selected = 'selected'";}
 							?>>Green</option>
+                        <option value="White" <?php if($color == 'White') {echo  "selected = 'selected'";}
+						?>>White</option>
+                        <option value="Purple" <?php if($color == 'Purple') {echo  "selected = 'selected'";}
+						?>>Purple</option>
+                        <option value="Yellow" <?php if($color == 'Yellow') {echo  "selected = 'selected'";}
+						?>>Yellow</option>
 							<option value="Blue" <?php if($color == 'Blue') {echo  "selected = 'selected'";}
 							?>>Blue</option>
 					</select>
