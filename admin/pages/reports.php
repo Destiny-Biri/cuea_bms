@@ -10,24 +10,24 @@
 					$salesByBus->run()->render();
 					break;
 				case 'route':
-					require_once ('src/salesByBus.php');
-					$salesByBus = new SalesByBus();
-					$salesByBus->run()->render();
+//					require_once ('src/salesByBus.php');
+//					$salesByBus = new SalesByBus();
+//					$salesByBus->run()->render();
 					break;
 				case 'dailysales':
-					require_once ('src/salesByBus.php');
-					$salesByBus = new SalesByBus();
-					$salesByBus->run()->render();
+//					require_once ('src/salesByBus.php');
+//					$salesByBus = new SalesByBus();
+//					$salesByBus->run()->render();
 					break;
 				case 'monthlysales':
-					require_once ('src/salesByBus.php');
-					$salesByBus = new SalesByBus();
-					$salesByBus->run()->render();
+//					require_once ('src/salesByBus.php');
+//					$salesByBus = new SalesByBus();
+//					$salesByBus->run()->render();
 					break;
 				case 'customer':
-					require_once ('src/salesByBus.php');
-					$salesByBus = new SalesByBus();
-					$salesByBus->run()->render();
+//					require_once ('src/salesByBus.php');
+//					$salesByBus = new SalesByBus();
+//					$salesByBus->run()->render();
 					break;
 				default:
 					break;

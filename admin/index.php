@@ -298,7 +298,7 @@ if(isset($_GET['action'])){
 </div>
 
 
-    <script src="js/koopreport.js"></script>
+
 	<script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
 		<script src="js/vendor/foundation.js"></script>
